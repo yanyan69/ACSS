@@ -1,7 +1,12 @@
+import os, warnings, logging
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'       #ignores everything except errors
+logging.getLogger('tensorflow').setLevel
+warnings.filterwarnings('ignore', category=UserWarning, module = 'google.protobuf')
+
 import tensorflow as tf 
 import numpy as np
 from PIL import Image
-import os
 
 model_path = 'copra_classifier/models/copra_model.keras'
 model = tf.keras.models.load_model(model_path)
@@ -26,5 +31,5 @@ confidence = 100 * np.max(predictions)
 print(f"""
     \n Prediction Result:
     \n Class: {predicted_class}
-    \m Confidence: {confidence:.2f}%
+    \n Confidence: {confidence:.2f}%
     """)
